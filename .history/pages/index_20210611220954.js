@@ -13,7 +13,7 @@ export default function Home() {
 
   const editTodo = (id) => {
     let editrecord = todos.find((el) => el.id === id);
-    setupdatetodo(editrecord);
+    setupdatetodo(editrecord.text);
   };
 
   return (

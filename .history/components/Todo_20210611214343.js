@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useGlobalContext } from "@/context/Globalcontext";
 import styled, { css } from "styled-components";
 import { ItemBox } from "./ItemBox";
-import { Button } from "./Button";
 
 const TodoItem = styled(ItemBox)`
   height: 5.3rem;
@@ -32,6 +31,23 @@ const Buttoncontainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-left: auto;
+`;
+const DeleteButton = styled.button`
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  width: 1.18rem;
+  min-width: 1.18rem;
+  height: 1.18rem;
+  transition: transform var(--transition);
+  @media (min-width: 768px) {
+    width: 1.77rem;
+    height: 1.77rem;
+  }
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 const CircleCheckbox = styled.button`
@@ -74,7 +90,7 @@ const CircleCheckbox = styled.button`
   }
 `;
 
-export const Todo = ({ todo, editTodo }) => {
+export const Todo = ({ todo }) => {
   const { deleteTodo, completeTodo } = useGlobalContext();
 
   return (
@@ -96,22 +112,18 @@ export const Todo = ({ todo, editTodo }) => {
       </CircleCheckbox>
       <TodoText completed={todo.completed}>{todo.text}</TodoText>
       <Buttoncontainer>
-        <Button aria-label="Edit todo" onClick={() => editTodo(todo.id)}>
-          <Image
-            src="/static/edit.svg"
-            width={100}
-            height={100}
-            alt="Edit button"
-          />
-        </Button>
-        <Button aria-label="Delete todo" onClick={() => deleteTodo(todo.id)}>
+        <button>Edit</button>
+        <DeleteButton
+          aria-label="Delete todo"
+          onClick={() => deleteTodo(todo.id)}
+        >
           <Image
             src="/static/cancel.svg"
             width={100}
             height={100}
             alt="Delete button"
           />
-        </Button>
+        </DeleteButton>
       </Buttoncontainer>
     </TodoItem>
   );

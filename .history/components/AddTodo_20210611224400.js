@@ -5,7 +5,7 @@ import { ItemBox } from "./ItemBox";
 import { Button } from "./Button";
 import Image from "next/image";
 
-const ButtonCross = styled(Button)``;
+const InputCircle = styled(Button)``;
 
 const TodoInput = styled.input`
   width: 90%;
@@ -27,7 +27,7 @@ const TodoInput = styled.input`
 
 //
 const AddTodo = ({ updatetodo }) => {
-  const { submitTodo, updateTodohandler } = useGlobalContext();
+  const { submitTodo } = useGlobalContext();
   const [inputText, setInputText] = useState("");
   const [isFocus, setIsFocus] = useState(false);
 
@@ -38,21 +38,17 @@ const AddTodo = ({ updatetodo }) => {
   const submitTodoHandler = async (e) => {
     if (e.key === "Enter" && inputText) {
       e.preventDefault();
-      if (JSON.stringify(updatetodo) === "{}") {
-        await submitTodo(inputText);
-      } else {
-        console.log("update logic here");
-        await updateTodohandler(updatetodo.id, inputText);
-      }
+      await submitTodo(inputText);
       setInputText("");
     }
   };
 
   const onInputFocusHandler = () => setIsFocus(true);
 
+  const onInputBlurHandler = () => setIsFocus(false);
+
   const removeTextHandler = async () => {
     setInputText("");
-    setIsFocus(false);
   };
 
   return (
@@ -64,6 +60,7 @@ const AddTodo = ({ updatetodo }) => {
         id="newTodo"
         onKeyDown={submitTodoHandler}
         onFocus={onInputFocusHandler}
+        onBlur={onInputBlurHandler}
         onChange={(e) => {
           setInputText(e.target.value);
         }}
@@ -72,19 +69,18 @@ const AddTodo = ({ updatetodo }) => {
         placeholder="Create a new todo..."
         autocomplete="off"
       />
-      {isFocus && (
-        <ButtonCross
-          aria-label="Cancel Text"
-          onClick={() => removeTextHandler()}
-        >
-          <Image
-            src="/static/cross.svg"
-            width={100}
-            height={100}
-            alt="Delete button"
-          />
-        </ButtonCross>
-      )}
+      <InputCircle
+        aria-label="Cancel Text"
+        isFocus={isFocus}
+        onClick={() => removeTextHandler()}
+      >
+        <Image
+          src="/static/cross.svg"
+          width={100}
+          height={100}
+          alt="Delete button"
+        />
+      </InputCircle>
     </ItemBox>
   );
 };

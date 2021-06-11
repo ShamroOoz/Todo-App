@@ -29,20 +29,6 @@ export const useTodo = () => {
     setTodos(todos.filter((el) => el.id !== id));
   };
 
-  const updateTodohandler = (id, text) => {
-    return setTodos(
-      todos.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            text: text,
-          };
-        }
-        return item;
-      })
-    );
-  };
-
   const completeTodo = (id) => {
     setTodos(
       todos.map((item) => {
@@ -59,7 +45,6 @@ export const useTodo = () => {
 
   return {
     todos,
-    updateTodohandler,
     submitTodo,
     deleteTodo,
     completeTodo,

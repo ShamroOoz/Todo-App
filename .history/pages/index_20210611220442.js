@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useGlobalContext } from "@/context/Globalcontext";
 import Main from "@/components/Main";
 import AddTodo from "@/components/AddTodo";
@@ -13,12 +12,12 @@ export default function Home() {
 
   const editTodo = (id) => {
     let editrecord = todos.find((el) => el.id === id);
-    setupdatetodo(editrecord);
+    console.log(editrecord);
   };
 
   return (
     <Main>
-      <AddTodo updatetodo={updatetodo} />
+      <AddTodo />
       {todos?.length == 0 && <Loader />}
       {todos?.length > 0 && <TodoList editTodo={editTodo} />}
     </Main>

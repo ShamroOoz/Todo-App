@@ -5,8 +5,6 @@ import { ItemBox } from "./ItemBox";
 import { Button } from "./Button";
 import Image from "next/image";
 
-const ButtonCross = styled(Button)``;
-
 const TodoInput = styled.input`
   width: 90%;
   background-color: ${(p) => p.theme.todoBg};
@@ -20,16 +18,12 @@ const TodoInput = styled.input`
   &::placeholder {
     color: ${(p) => p.theme.newTodoPlaceholderText};
   }
-  &:focus .input-circle {
-    display: flex;
-  }
 `;
 
 //
 const AddTodo = ({ updatetodo }) => {
-  const { submitTodo, updateTodohandler } = useGlobalContext();
+  const { submitTodo } = useGlobalContext();
   const [inputText, setInputText] = useState("");
-  const [isFocus, setIsFocus] = useState(false);
 
   useEffect(() => {
     if (updatetodo) setInputText(updatetodo?.text);
@@ -38,21 +32,9 @@ const AddTodo = ({ updatetodo }) => {
   const submitTodoHandler = async (e) => {
     if (e.key === "Enter" && inputText) {
       e.preventDefault();
-      if (JSON.stringify(updatetodo) === "{}") {
-        await submitTodo(inputText);
-      } else {
-        console.log("update logic here");
-        await updateTodohandler(updatetodo.id, inputText);
-      }
+      await submitTodo(inputText);
       setInputText("");
     }
-  };
-
-  const onInputFocusHandler = () => setIsFocus(true);
-
-  const removeTextHandler = async () => {
-    setInputText("");
-    setIsFocus(false);
   };
 
   return (
@@ -63,7 +45,6 @@ const AddTodo = ({ updatetodo }) => {
       <TodoInput
         id="newTodo"
         onKeyDown={submitTodoHandler}
-        onFocus={onInputFocusHandler}
         onChange={(e) => {
           setInputText(e.target.value);
         }}
@@ -72,19 +53,14 @@ const AddTodo = ({ updatetodo }) => {
         placeholder="Create a new todo..."
         autocomplete="off"
       />
-      {isFocus && (
-        <ButtonCross
-          aria-label="Cancel Text"
-          onClick={() => removeTextHandler()}
-        >
-          <Image
-            src="/static/cross.svg"
-            width={100}
-            height={100}
-            alt="Delete button"
-          />
-        </ButtonCross>
-      )}
+      <Button aria-label="Cancel Text">
+        <Image
+          src="/static/cross.svg"
+          width={100}
+          height={100}
+          alt="Cancel button"
+        />
+      </Button>
     </ItemBox>
   );
 };

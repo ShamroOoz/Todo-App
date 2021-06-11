@@ -30,17 +30,18 @@ export const useTodo = () => {
   };
 
   const updateTodohandler = (id, text) => {
-    return setTodos(
-      todos.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            text: text,
-          };
-        }
-        return item;
-      })
-    );
+    console.log(id, text);
+    // return setTodos(
+    //   todos.map((item) => {
+    //     if (item.id === id) {
+    //       return {
+    //         ...item,
+    //         text: text,
+    //       };
+    //     }
+    //     return item;
+    //   })
+    // );
   };
 
   const completeTodo = (id) => {

@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <Main>
-      <AddTodo updatetodo={updatetodo} />
+      <AddTodo />
       {todos?.length == 0 && <Loader />}
       {todos?.length > 0 && <TodoList editTodo={editTodo} />}
     </Main>
