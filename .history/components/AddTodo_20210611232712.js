@@ -26,14 +26,13 @@ const TodoInput = styled.input`
 `;
 
 //
-const AddTodo = ({ updatetodo, setupdatetodo }) => {
+const AddTodo = ({ updatetodo }) => {
   const { submitTodo, updateTodohandler } = useGlobalContext();
   const [inputText, setInputText] = useState("");
   const [isFocus, setIsFocus] = useState(false);
 
   useEffect(() => {
-    console.log(updatetodo);
-    if (JSON.stringify(updatetodo) !== "{}") {
+    if (updatetodo) {
       setIsFocus(true);
       setInputText(updatetodo?.text);
     }
@@ -56,7 +55,6 @@ const AddTodo = ({ updatetodo, setupdatetodo }) => {
 
   const removeTextHandler = async () => {
     setInputText("");
-    setupdatetodo({});
     setIsFocus(false);
   };
 
